@@ -7,6 +7,7 @@ SERVER = "192.168.56.1"
 ADDR = (SERVER, PORT)
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client.connect(ADDR)
+nickName = input("Enter your name: ")
 
 def send(msg):
     client.send(msg.encode("utf-8"))
@@ -16,6 +17,6 @@ def send(msg):
 
 while True:
     text = input("Text: ")    
-    send(text)
+    send(nickName+": "+text)
     
     

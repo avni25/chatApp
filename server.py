@@ -9,6 +9,7 @@ print(SERVER)
 ADDR = (SERVER, PORT)
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind(ADDR)
+clients =[]
 
 def handle_client(conn, addr):
     print(f"[NEW CONNECTION] {addr} connected.")
@@ -17,18 +18,20 @@ def handle_client(conn, addr):
         if not msg:
             break
         print(f"[{addr}] {msg}")
-        conn.send(msg.encode("utf-8"))
+        conn.send(msg.encode("utf-8"))        
     conn.close()
 
 def start():
     server.listen()
+    print(f"[LISTENING] Server is listening on {SERVER}")
     while True:
         conn, addr = server.accept()
         thread = threading.Thread(target=handle_client, args=(conn, addr))
         thread.start()
         print(f"[ACTIVE CONNECTIONS] {threading.activeCount() - 1}")
 
-print(f"[LISTENING] Server is listening on {SERVER}")
+
+
 start()
 
 
