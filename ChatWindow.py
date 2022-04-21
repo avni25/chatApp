@@ -36,9 +36,9 @@ class Ui_ChatWindow(object):
         self.lineEdit_text = QtWidgets.QLineEdit(self.centralwidget)
         self.lineEdit_text.setGeometry(QtCore.QRect(20, 440, 341, 31))
         self.lineEdit_text.setObjectName("lineEdit_text")
-        self.brn_send = QtWidgets.QPushButton(self.centralwidget)
-        self.brn_send.setGeometry(QtCore.QRect(370, 440, 81, 31))
-        self.brn_send.setObjectName("brn_send")
+        self.btn_send = QtWidgets.QPushButton(self.centralwidget)
+        self.btn_send.setGeometry(QtCore.QRect(370, 440, 81, 31))
+        self.btn_send.setObjectName("btn_send")
         self.btn_joinRoom = QtWidgets.QPushButton(self.centralwidget)
         self.btn_joinRoom.setGeometry(QtCore.QRect(110, 10, 75, 23))
         self.btn_joinRoom.setObjectName("btn_joinRoom")
@@ -63,21 +63,8 @@ class Ui_ChatWindow(object):
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><title>chat box</title><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:8pt;\">asdsda</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:8pt;\">zxczxc</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:8pt;\">qwq</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:8pt;\">aa</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:8pt;\">sss</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:8pt;\">qww</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:8pt;\">www</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:8pt;\">www</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:8pt;\">fff</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:8pt;\">aaa</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:8pt;\">fff</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:8pt;\">aaaf</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:8pt;\">ffff</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:8pt;\">affff</span></p></body></html>"))
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
         self.label.setText(_translate("ChatWindow", "clients"))
         self.label_2.setText(_translate("ChatWindow", "chat box"))
-        self.brn_send.setText(_translate("ChatWindow", "send"))
+        self.btn_send.setText(_translate("ChatWindow", "send"))
         self.btn_joinRoom.setText(_translate("ChatWindow", "join room"))
