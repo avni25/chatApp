@@ -1,0 +1,22 @@
+## install
+--------------------
+pyqt5
+pyqt5-tools
+pprint
+tweepy
+requests
+
+
+
+## donwload qt designer
+build-system-fman.io/qt-designer-download
+
+
+## commands
+pyuic5 ChatWindow.ui -o ChatWindow.py  // update window components
+
+
+
+
+quick post buttonu olustur
+sehir ismi labelda yoksa deactivate button varsa activate
