@@ -9,17 +9,35 @@ print(SERVER)
 ADDR = (SERVER, PORT)
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind(ADDR)
+server.listen(10)
+
 clients =[]
+
+def broadcast(msg, conn):
+    for client in clients:
+        if client != conn:
+            try:
+                client.send(msg.encode("utf-8"))
+            except:
+                client.close()
+                clients.remove(client)
 
 def handle_client(conn, addr):
     print(f"[NEW CONNECTION] {addr} connected.")
-    while True:        
-        msg = conn.recv(1024).decode("utf-8")
-        if not msg:
-            break
-        print(f"[{addr}] {msg}")
-        conn.send(msg.encode("utf-8"))        
-    conn.close()
+    print(addr[1])    
+    clients.append(conn)
+    while True: 
+        try:
+            msg = conn.recv(1024).decode("utf-8")
+            if msg:
+                print(f"[{addr}] {msg}")
+
+                broadcast(msg, conn)        
+            else:
+                clients.remove(conn)
+        except:
+            continue
+    
 
 def start():
     server.listen()
@@ -30,10 +48,10 @@ def start():
         thread.start()
         print(f"[ACTIVE CONNECTIONS] {threading.activeCount() - 1}")
 
-
+def start_thread():
+    t2 = threading.Thread(target=start)
+    t2.start()
 
 start()
-
-
 
 

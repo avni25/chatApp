@@ -17,9 +17,9 @@ class Ui_ChatWindow(object):
         ChatWindow.resize(480, 532)
         self.centralwidget = QtWidgets.QWidget(ChatWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.btn_createRoom = QtWidgets.QPushButton(self.centralwidget)
-        self.btn_createRoom.setGeometry(QtCore.QRect(10, 10, 75, 23))
-        self.btn_createRoom.setObjectName("btn_createRoom")
+        self.btn_connect = QtWidgets.QPushButton(self.centralwidget)
+        self.btn_connect.setGeometry(QtCore.QRect(10, 10, 75, 23))
+        self.btn_connect.setObjectName("btn_connect")
         self.textEdit_chatBox = QtWidgets.QTextEdit(self.centralwidget)
         self.textEdit_chatBox.setGeometry(QtCore.QRect(140, 70, 321, 351))
         self.textEdit_chatBox.setReadOnly(True)
@@ -42,6 +42,9 @@ class Ui_ChatWindow(object):
         self.btn_joinRoom = QtWidgets.QPushButton(self.centralwidget)
         self.btn_joinRoom.setGeometry(QtCore.QRect(110, 10, 75, 23))
         self.btn_joinRoom.setObjectName("btn_joinRoom")
+        self.label_3 = QtWidgets.QLabel(self.centralwidget)
+        self.label_3.setGeometry(QtCore.QRect(270, 10, 47, 13))
+        self.label_3.setObjectName("label_3")
         ChatWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(ChatWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 480, 21))
@@ -57,7 +60,7 @@ class Ui_ChatWindow(object):
     def retranslateUi(self, ChatWindow):
         _translate = QtCore.QCoreApplication.translate
         ChatWindow.setWindowTitle(_translate("ChatWindow", "MainWindow"))
-        self.btn_createRoom.setText(_translate("ChatWindow", "create room"))
+        self.btn_connect.setText(_translate("ChatWindow", "Connect"))
         self.textEdit_chatBox.setDocumentTitle(_translate("ChatWindow", "chat box"))
         self.textEdit_chatBox.setHtml(_translate("ChatWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><title>chat box</title><style type=\"text/css\">\n"
@@ -68,3 +71,4 @@ class Ui_ChatWindow(object):
         self.label_2.setText(_translate("ChatWindow", "chat box"))
         self.btn_send.setText(_translate("ChatWindow", "send"))
         self.btn_joinRoom.setText(_translate("ChatWindow", "join room"))
+        self.label_3.setText(_translate("ChatWindow", "TextLabel"))

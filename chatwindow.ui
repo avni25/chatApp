@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="btn_createRoom">
+   <widget class="QPushButton" name="btn_connect">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>create room</string>
+     <string>Connect</string>
     </property>
    </widget>
    <widget class="QTextEdit" name="textEdit_chatBox">
@@ -120,6 +120,19 @@ p, li { white-space: pre-wrap; }
     </property>
     <property name="text">
      <string>join room</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>10</y>
+      <width>47</width>
+      <height>13</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
     </property>
    </widget>
   </widget>
