@@ -6,6 +6,8 @@ from PyQt5 import QtWidgets
 from PyQt5.QtCore import QObject, QThread, pyqtSignal
 from regex import R
 from clientWin import Ui_clientWindow
+from datetime import datetime
+
 
 PORT = 5005
 # SERVER = "192.168.56.1"
@@ -61,7 +63,8 @@ class App(QtWidgets.QMainWindow):
             print("Error: ", e)
           
     def send(self, msg): 
-        msg_row = self.nickName + " " + msg      
+        now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        msg_row = "["+now+"] "+self.nickName + ": " + msg      
         client.send(msg_row.encode("utf-8"))
          
 
