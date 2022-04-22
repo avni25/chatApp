@@ -1,6 +1,4 @@
 import socket
-import threading
-import time
 import sys
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QObject, QThread, pyqtSignal
@@ -58,6 +56,7 @@ class App(QtWidgets.QMainWindow):
             r = self.chatBoxText+"\n"
             self.chatBoxText =  r +" "+ msg + "\n"
             self.ui.textEdit.setText(self.chatBoxText)
+            self.ui.textEdit.verticalScrollBar().setValue(self.ui.textEdit.verticalScrollBar().maximum())
             print(f"{msg}") 
         except Exception as e:
             print("Error: ", e)
