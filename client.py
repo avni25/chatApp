@@ -1,5 +1,6 @@
 import socket
 import sys
+from winreg import QueryInfoKey
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QObject, QThread, pyqtSignal
 from regex import R

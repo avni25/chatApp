@@ -54,3 +54,4 @@ class Ui_clientWindow(object):
         self.btn_client_connect.setText(_translate("clientWindow", "connect"))
         self.label.setText(_translate("clientWindow", "Name"))
         self.btn_client_send.setText(_translate("clientWindow", "Send"))
+        self.btn_client_send.setShortcut(_translate("clientWindow", "Return"))
