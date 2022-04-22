@@ -1,7 +1,9 @@
 import socket
 import threading
+import time
 import sys
 from PyQt5 import QtWidgets
+from PyQt5.QtCore import QObject, QThread, pyqtSignal
 from clientWin import Ui_clientWindow
 
 PORT = 5005
@@ -22,6 +24,17 @@ client = socket.socket()
 #     text = input("Text: ")    
 #     send(nickName+": "+text)
 
+class Worker(QThread):
+    update_signal = pyqtSignal(str)
+    def run(self):
+        while True:
+            try:
+                msg = client.recv(1024).decode("utf-8")
+                self.update_signal.emit(msg)
+            except Exception as e:
+                print(f"[!] Error: {e}")
+                break
+            time.sleep(0.1)            
 
 class App(QtWidgets.QMainWindow):
     
@@ -33,29 +46,29 @@ class App(QtWidgets.QMainWindow):
         self.ui.btn_client_connect.clicked.connect(self.connect)
         self.nickName = "Client"
         self.chatBoxText = ""
-        
+        self.worker = Worker()
+        self.worker.update_signal.connect(self.listen_for_messages)
         
     def connect(self):
         n = self.ui.lineEdit_nickName.text()
         print(len(n))
         if len(n)>0:
             self.nickName = n
-            client.connect(ADDR)            
+            client.connect(ADDR)
+            self.worker.start()
             print(self.nickName)
+    
+    
             
-    def listen_for_messages(self):
-        print("listening")
-        while True:
-            try:
-                message = client.recv(1024).decode("utf-8")
-                if message == "":
-                    break
-                r = self.chatBoxText+"\n"
-                self.chatBoxText = r +" "+ message + "\n"
-                self.ui.textEdit.setText(self.chatBoxText)
-                print(f"{message}") 
-            except Exception as e:
-                print("Error: ", e)
+    def listen_for_messages(self, msg):
+        
+        try:                
+            r = self.chatBoxText+"\n"
+            self.chatBoxText = r +" "+ msg + "\n"
+            self.ui.textEdit.setText(self.chatBoxText)
+            print(f"{msg}") 
+        except Exception as e:
+            print("Error: ", e)
           
     def send(self, msg): 
                
@@ -79,15 +92,19 @@ class App(QtWidgets.QMainWindow):
         self.ui.lineEdit_2.setText("")
         print(q)
 
-def app():
+
+
+
+def run():
     app = QtWidgets.QApplication(sys.argv)
     win = App()    
-    win.show()
-    
+    win.show()    
     sys.exit(app.exec_())
     
-# thread_app = threading.Thread(target=app)    
+# thread_app = threading.Thread(target=run)    
 # thread_app.start()
-app()
+if __name__ == "__main__":
+    run()
+
 
 

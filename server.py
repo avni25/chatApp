@@ -47,9 +47,6 @@ def start():
         thread.start()
         print(f"[ACTIVE CONNECTIONS] {threading.activeCount() - 1}")
 
-def start_thread():
-    t2 = threading.Thread(target=start)
-    t2.start()
 
 start()
 
