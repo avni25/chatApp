@@ -4,6 +4,7 @@ import time
 import sys
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QObject, QThread, pyqtSignal
+from regex import R
 from clientWin import Ui_clientWindow
 
 PORT = 5005
@@ -12,17 +13,7 @@ SERVER = "127.0.0.1"
 ADDR = (SERVER, PORT)
 # client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client = socket.socket()
-# client.connect(ADDR)
-# nickName = input("Enter your name: ")
 
-# def send(msg):
-#         client.send(msg.encode("utf-8"))
-#         response = client.recv(1024).decode("utf-8")
-#         print(f"{response}")
-
-# while True:
-#     text = input("Text: ")    
-#     send(nickName+": "+text)
 
 class Worker(QThread):
     update_signal = pyqtSignal(str)
@@ -34,7 +25,7 @@ class Worker(QThread):
             except Exception as e:
                 print(f"[!] Error: {e}")
                 break
-            time.sleep(0.1)            
+                      
 
 class App(QtWidgets.QMainWindow):
     
@@ -60,28 +51,19 @@ class App(QtWidgets.QMainWindow):
     
     
             
-    def listen_for_messages(self, msg):
-        
-        try:                
+    def listen_for_messages(self, msg):        
+        try: 
             r = self.chatBoxText+"\n"
-            self.chatBoxText = r +" "+ msg + "\n"
+            self.chatBoxText =  r +" "+ msg + "\n"
             self.ui.textEdit.setText(self.chatBoxText)
             print(f"{msg}") 
         except Exception as e:
             print("Error: ", e)
           
     def send(self, msg): 
-               
-        client.send(msg.encode("utf-8"))
-        try:
-            message = client.recv(1024).decode("utf-8")
-        except Exception as e:
-            print("Error: ", e)
-        else:
-            r = self.chatBoxText+"\n"
-            self.chatBoxText = r +" "+ message + "\n"
-            self.ui.textEdit.setText(self.chatBoxText)
-            print(f"{message}")  
+        msg_row = self.nickName + " " + msg      
+        client.send(msg_row.encode("utf-8"))
+         
 
     def run(self):
         q = self.ui.lineEdit_2.text()
@@ -101,8 +83,7 @@ def run():
     win.show()    
     sys.exit(app.exec_())
     
-# thread_app = threading.Thread(target=run)    
-# thread_app.start()
+
 if __name__ == "__main__":
     run()
 
