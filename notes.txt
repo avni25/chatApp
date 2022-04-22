@@ -17,6 +17,3 @@ pyuic5 ChatWindow.ui -o ChatWindow.py  // update window components
 pyuic5 clientWin.ui -o clientWin.py
 
 
-
-quick post buttonu olustur
-sehir ismi labelda yoksa deactivate button varsa activate
