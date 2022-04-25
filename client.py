@@ -2,19 +2,20 @@ import socket
 import sys
 from winreg import QueryInfoKey
 from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import *
 from PyQt5.QtCore import QObject, QThread, pyqtSignal
 from regex import R
 from clientWin import Ui_clientWindow
 from datetime import datetime
-
+from PIL import Image
 
 PORT = 5005
-# SERVER = "192.168.56.1"
-SERVER = "127.0.0.1"
+SERVER = "192.168.56.1"
+# SERVER = "127.0.0.1"
 ADDR = (SERVER, PORT)
 # client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client = socket.socket()
-
+fileDialog_default_dir = "c:\\Users\\Avni\\Desktop"
 
 class Worker(QThread):
     update_signal = pyqtSignal(str)
@@ -35,6 +36,7 @@ class App(QtWidgets.QMainWindow):
         self.ui = Ui_clientWindow()
         self.ui.setupUi(self)
         self.ui.btn_client_send.clicked.connect(self.run)
+        self.ui.btn_send_img.clicked.connect(self.sendImg)
         self.ui.btn_client_connect.clicked.connect(self.connect)
         self.nickName = "Client"
         self.chatBoxText = ""
@@ -50,7 +52,14 @@ class App(QtWidgets.QMainWindow):
             self.worker.start()
             print(self.nickName)
     
-    
+    def sendImg(self):
+        fileName = QFileDialog.getOpenFileName(self,
+    "Open Image", fileDialog_default_dir, "Image Files (*.png *.jpg)")
+        print(fileName)
+        img = Image.open(fileName[0])
+        img.show()
+        
+        
             
     def listen_for_messages(self, msg):        
         try: 

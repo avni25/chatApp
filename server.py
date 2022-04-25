@@ -3,9 +3,9 @@ import threading
 
 
 PORT = 5005
-# SERVER = "192.168.56.1"
+SERVER = "192.168.56.1"
 # SERVER = socket.gethostbyname(socket.gethostname())
-SERVER = "0.0.0.0"
+# SERVER = "0.0.0.0"
 print(SERVER)
 ADDR = (SERVER, PORT)
 # server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
