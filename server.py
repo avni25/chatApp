@@ -6,6 +6,8 @@ from pprint import pprint
 import re
 import json
 import time
+from datetime import datetime
+
 
 #---------------- FIREBASE CONFIGS---------------------------------
 
@@ -48,7 +50,10 @@ clients =[]
 def broadcast(msg):
     for client in clients:        
         client.send(msg) ##.encode("utf-8")
-        
+
+def convertTimestampToDateTime(ts):
+    s = int(str(ts).split(".")[0])
+    return datetime.utcfromtimestamp(s).strftime('%Y-%m-%d %H:%M:%S')
    
 def handle_client(conn, addr):
     print(f"[NEW CONNECTION] {addr} connected.")
@@ -56,7 +61,7 @@ def handle_client(conn, addr):
     arr = read(COLLECTION_MSG)
     s1=""
     for data in arr:
-        s1 = "["+str(data["time"])+"] "+data["user"]+": "+data["msg"]
+        s1 = "["+convertTimestampToDateTime(data["time"])+"] "+data["user"]+": "+data["msg"]
         # conn.send(str.encode(str(data)+"\n"))
         conn.send(str.encode(s1))
         time.sleep(0.02)
@@ -66,7 +71,7 @@ def handle_client(conn, addr):
             msg = conn.recv(1024) ##.decode("utf-8")
             s = "".join(map(chr, msg))
             data = json.loads(s)
-            s2 = "["+str(data["time"])+"] "+data["user"]+": "+data["msg"]
+            s2 = "["+convertTimestampToDateTime(data["time"])+"] "+data["user"]+": "+data["msg"]
             print(s2)            
             add(COLLECTION_MSG, {"msg":data["msg"], "time": float(data["time"]), "user": data["user"]})
         except Exception as e:
