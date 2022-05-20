@@ -5,7 +5,7 @@ from firebase_admin import credentials, firestore
 from pprint import pprint
 import re
 import json
-
+import time
 
 #---------------- FIREBASE CONFIGS---------------------------------
 
@@ -21,7 +21,11 @@ def add(collection_name, data):
     db.collection(collection_name).add(data)
     
 def read(collection_name):
-    return db.collection(collection_name).get()
+    arr =[]
+    l = db.collection(collection_name).order_by("time").stream()
+    for doc in l:
+        arr.append(doc.to_dict())
+    return arr
 
 #-----------------------------------------------------------------------
 regex= "(?<=\[).+?(?=\])"
@@ -49,21 +53,27 @@ def broadcast(msg):
 def handle_client(conn, addr):
     print(f"[NEW CONNECTION] {addr} connected.")
     print(addr[1])    
-    # file = open("temp.jpg", "wb")
-    # img_data = conn.recv(2048)
-    
+    arr = read(COLLECTION_MSG)
+    s1=""
+    for data in arr:
+        s1 = "["+str(data["time"])+"] "+data["user"]+": "+data["msg"]
+        # conn.send(str.encode(str(data)+"\n"))
+        conn.send(str.encode(s1))
+        time.sleep(0.02)
+        
     while True: 
         try:
             msg = conn.recv(1024) ##.decode("utf-8")
             s = "".join(map(chr, msg))
             data = json.loads(s)
-            print(f'{data["time"]}-{data["user"]}-{data["msg"]}')            
+            s2 = "["+str(data["time"])+"] "+data["user"]+": "+data["msg"]
+            print(s2)            
             add(COLLECTION_MSG, {"msg":data["msg"], "time": float(data["time"]), "user": data["user"]})
         except Exception as e:
             print(f"[!] Error: {e}")      
             clients.remove(conn)
                     
-        broadcast(msg)
+        broadcast(str.encode(s2))
     
     
 def start():
@@ -77,7 +87,7 @@ def start():
         # thread.daemon = True
         thread.start()
         print(f"[ACTIVE CONNECTIONS] {threading.activeCount() - 1}")
-
+        pprint(read(COLLECTION_MSG))
 
 start()
 

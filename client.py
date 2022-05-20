@@ -23,9 +23,14 @@ class Worker(QThread):
     update_signal = pyqtSignal(str)    
     def run(self):
         while True:
+            arr = []
             try:
                 msg = client.recv(1024).decode("utf-8")
-                self.update_signal.emit(msg)
+                if(msg !=""):
+                    arr.append(msg)
+                while len(arr)>0:
+                    self.update_signal.emit(arr[0])
+                    arr.pop(0)
             except Exception as e:
                 print(f"[!] Error: {e}")
                 break
@@ -73,6 +78,7 @@ class App(QtWidgets.QMainWindow):
     def listen_for_messages(self, msg):        
         try: 
             r = self.chatBoxText+"\n"
+            
             self.chatBoxText =  r +" "+ msg + "\n"
             # self.ui.textEdit.setText(self.chatBoxText)
             self.ui.textEdit.insertHtml(msg+"<br>")

@@ -2,7 +2,7 @@ from pprint import pprint
 import re
 import json
 import time
-
+from server import read, COLLECTION_MSG
 
 s = "[qasdasd] avni: hello"
 regex= "(?<=\[).+?(?=\])"
@@ -16,3 +16,7 @@ dic = json.loads(obj)
 
 print(dic["time"])
 print(type(time.time()))
+
+print(read(COLLECTION_MSG))
+
+
