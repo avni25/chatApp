@@ -28,6 +28,8 @@ class Ui_clientWindow(object):
         self.label.setObjectName("label")
         self.textEdit = QtWidgets.QTextEdit(self.centralwidget)
         self.textEdit.setGeometry(QtCore.QRect(20, 50, 321, 251))
+        self.textEdit.setFrameShape(QtWidgets.QFrame.Panel)
+        self.textEdit.setLineWrapColumnOrWidth(-1)
         self.textEdit.setReadOnly(True)
         self.textEdit.setObjectName("textEdit")
         self.lineEdit_2 = QtWidgets.QLineEdit(self.centralwidget)
@@ -56,6 +58,12 @@ class Ui_clientWindow(object):
         clientWindow.setWindowTitle(_translate("clientWindow", "MainWindow"))
         self.btn_client_connect.setText(_translate("clientWindow", "connect"))
         self.label.setText(_translate("clientWindow", "Name"))
+        self.textEdit.setHtml(_translate("clientWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p></body></html>"))
         self.btn_client_send.setText(_translate("clientWindow", "Send"))
         self.btn_client_send.setShortcut(_translate("clientWindow", "Return"))
         self.btn_send_img.setText(_translate("clientWindow", "Send image"))
+

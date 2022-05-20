@@ -8,6 +8,8 @@ from regex import R
 from clientWin import Ui_clientWindow
 from datetime import datetime
 from PIL import Image
+import json
+import time
 
 PORT = 5005
 SERVER = "192.168.56.1"
@@ -18,7 +20,7 @@ client = socket.socket()
 fileDialog_default_dir = "c:\\Users\\Avni\\Desktop"
 
 class Worker(QThread):
-    update_signal = pyqtSignal(str)
+    update_signal = pyqtSignal(str)    
     def run(self):
         while True:
             try:
@@ -55,17 +57,25 @@ class App(QtWidgets.QMainWindow):
     def sendImg(self):
         fileName = QFileDialog.getOpenFileName(self,
     "Open Image", fileDialog_default_dir, "Image Files (*.png *.jpg)")
-        print(fileName)
-        img = Image.open(fileName[0])
-        img.show()
+        print(fileName)        
+        self.ui.textEdit.insertHtml("<img src='"+fileName[0]+"' width='100' height='100'> <br>")
+        # file = open(fileName[0], "rb")
+        # client.sendFile(file, 1024)
+        # img_data = file.read(1024)
+        # print(img_data)
+        # while img_data:
+        #     client.send(img_data)
+        #     img_data = file.read(1024)
+        # file.close()
+        print("Image sent")
         
         
-            
     def listen_for_messages(self, msg):        
         try: 
             r = self.chatBoxText+"\n"
             self.chatBoxText =  r +" "+ msg + "\n"
-            self.ui.textEdit.setText(self.chatBoxText)
+            # self.ui.textEdit.setText(self.chatBoxText)
+            self.ui.textEdit.insertHtml(msg+"<br>")
             self.ui.textEdit.verticalScrollBar().setValue(self.ui.textEdit.verticalScrollBar().maximum())
             print(f"{msg}") 
         except Exception as e:
@@ -73,8 +83,10 @@ class App(QtWidgets.QMainWindow):
           
     def send(self, msg): 
         now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        msg_row = "["+now+"] "+self.nickName + ": " + msg      
-        client.send(msg_row.encode("utf-8"))
+        timestamp = time.time()
+        # msg_row = "["+now+"] "+self.nickName + ": " + msg  
+        obj = '{"time": "'+str(timestamp)+'", "user": "'+self.nickName+'", "msg": "'+msg+'" }'    
+        client.send(obj.encode("utf-8"))
          
 
     def run(self):
